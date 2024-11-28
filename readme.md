@@ -1,0 +1,1 @@
+in this only multiple ports nsg resource created
