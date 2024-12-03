@@ -1,4 +1,4 @@
-# Create the Private DNS Zone for MySQL
+#Private DNS Zone for MySQL
 resource "azurerm_private_dns_zone" "example" {
   name                = "privatelink.mysql.database.azure.com"   # The DNS zone for MySQL
   resource_group_name = var.resource_group_name
@@ -16,7 +16,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "example" {
   # registration_enabled = true
 }
 
-# Create MySQL Flexible Server
+# MySQL Flexible Server
 resource "azurerm_mysql_flexible_server" "example" {
   for_each = var.mysql
   name                   = "nabeel-fs"
@@ -34,7 +34,7 @@ resource "azurerm_mysql_flexible_server" "example" {
   depends_on = [azurerm_private_dns_zone_virtual_network_link.example]
 }
 
-# Create MySQL Database
+# MySQL Database
 resource "azurerm_mysql_flexible_database" "example" {
   for_each           = var.mysql
   name               = each.value.database_name
@@ -44,7 +44,7 @@ resource "azurerm_mysql_flexible_database" "example" {
   charset             = "utf8mb4"
 }
 
-# Add a Private Endpoint for MySQL
+# Private Endpoint for MySQL
 resource "azurerm_private_endpoint" "example" {
   for_each            = var.mysql
   name                = "${each.key}-private-endpoint"
@@ -58,6 +58,7 @@ resource "azurerm_private_endpoint" "example" {
     is_manual_connection           = false
     subresource_names              = ["mysqlServer"]
   }
+
   # Attach Private DNS Zone
   private_dns_zone_group {
     name                 = "mysql-private-dns-group"
@@ -66,7 +67,7 @@ resource "azurerm_private_endpoint" "example" {
   # tags = var.tags
 }
 
-# Create a DNS A record to route traffic to the Private Endpoint (FQDN resolution)
+# DNS A record to route traffic to the Private Endpoint (FQDN resolution)
 resource "azurerm_private_dns_a_record" "example" {
   for_each            = var.mysql
   name                = azurerm_mysql_flexible_server.example[each.key].fqdn
