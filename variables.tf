@@ -9,7 +9,7 @@ variable "rg-var" {
 
 variable "mysql" {
   type = map(object({
-    name          = string
+    # name = string #db server name
     subnet_name   = string
     vnet_name     = string
     database_name = string
@@ -26,7 +26,6 @@ variable "vss" {
     nsg_name    = string
   }))
 }
-
 #-------------mysql-nsg---------#
 variable "nsg_config" {
   description = "Map of NSGs with configurations"

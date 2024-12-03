@@ -1,5 +1,5 @@
 rg-var = {
-  resource_group_name = "nabeel-rg"
+  resource_group_name = "ntest-rg"
   location            = "West US 2"
 }
 
@@ -14,11 +14,10 @@ vss = {
   }
 }
 
-
 mysql = {
   "mysql1" = {
-    name          = "nabeel-fs"
-    subnet_name   = "private-subnet"
+    # name          = "nabeel-fs" #db server name
+    subnet_name   = "public-subnet"
     vnet_name     = "my-vnet1"
     database_name = "exampledb"
   }
@@ -29,7 +28,7 @@ mysql = {
 # NSG Configuration
 nsg_config = {
   "nsg1" = {}
-  "nsg2" = {}
+  # "nsg2" = {}
 }
 
 

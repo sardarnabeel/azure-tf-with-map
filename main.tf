@@ -10,6 +10,7 @@ module "vss" {
   nsg_ids             = module.nsg.nsg_ids
   subnet_ids          = module.vnet.subnet_ids #its new for testing
   lb-backend_ids      = [module.load_balancer.lb-backend_ids]
+  user_data           = file("${path.module}/modules/vss/wordpress-userdata.sh")
 }
 
 module "nsg" {

@@ -13,7 +13,7 @@ variable "subnet_ids" {
 }
 variable "mysql" {
   type = map(object({
-    name = string
+    # name = string #db server name
     subnet_name = string
     vnet_name = string
     database_name = string

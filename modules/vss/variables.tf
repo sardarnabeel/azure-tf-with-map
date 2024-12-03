@@ -23,3 +23,7 @@ variable "vss" {
     nsg_name = string
   }))
 }
+
+variable "user_data" {
+  type = string
+}

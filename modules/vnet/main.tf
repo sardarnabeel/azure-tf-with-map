@@ -16,17 +16,19 @@ resource "azurerm_subnet" "subnet" {
   default_outbound_access_enabled = each.value.Outbound
   private_link_service_network_policies_enabled = false
   private_endpoint_network_policies = "Disabled"
-  # Add delegation dynamically for private subnet only
-  dynamic "delegation" {
-    for_each = each.value.subnet_name == "private-subnet" ? [each.value] : []
-    content {
-      name = "mysql-flexible-server-delegation-${each.value.subnet_name}"
-      service_delegation {
-        name = "Microsoft.DBforMySQL/flexibleServers"
-        actions = [
-          "Microsoft.Network/virtualNetworks/subnets/join/action",
-        ]
-      }
-    }
-  }
+
+
+  # # Add delegation dynamically for private subnet only
+  # dynamic "delegation" {
+  #   for_each = each.value.subnet_name == "private-subnet" ? [each.value] : []
+  #   content {
+  #     name = "mysql-flexible-server-delegation-${each.value.subnet_name}"
+  #     service_delegation {
+  #       name = "Microsoft.DBforMySQL/flexibleServers"
+  #       actions = [
+  #         "Microsoft.Network/virtualNetworks/subnets/join/action",
+  #       ]
+  #     }
+  #   }
+  # }
 }

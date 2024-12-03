@@ -16,6 +16,7 @@ sudo chown -R www-data:www-data /var/www/html/
 sudo chmod -R 755 /var/www/html/
 sudo rm -rf index.html
 sudo cp wp-config-sample.php wp-config.php
+sudo rm -rf wp-config-sample.php
 # Configure WordPress to connect to the MySQL DB
 # # Use the db_ip variable passed from Terraform
 # DB_IP="${db_ip}"
@@ -24,10 +25,10 @@ sudo cp wp-config-sample.php wp-config.php
 # DB_PASSWORD="wordpresspassword"
 
 # # Set up the wp-config.php file with the MySQL DB credentials
-# sudo sed -i "s/database_name_here/$DB_NAME/" /var/www/html/wp-config.php
-# sudo sed -i "s/username_here/$DB_USER/" /var/www/html/wp-config.php
-# sudo sed -i "s/password_here/$DB_PASSWORD/" /var/www/html/wp-config.php
-# sudo sed -i "s/localhost/$DB_IP/" /var/www/html/wp-config.php
+sudo sed -i "s/database_name_here/exampledb/" /var/www/html/wp-config.php
+sudo sed -i "s/username_here/psqladmin/" /var/www/html/wp-config.php
+sudo sed -i "s/password_here/H@Sh1CoR3!/" /var/www/html/wp-config.php
+sudo sed -i "s/localhost/nabeel-fs.mysql.database.azure.com/" /var/www/html/wp-config.php
 
 echo "WordPress setup complete."
 sudo apt update -y

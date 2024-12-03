@@ -19,6 +19,7 @@ resource "azurerm_network_security_rule" "allow_ssh" {
   source_port_range           = "*"
   network_security_group_name = azurerm_network_security_group.this["nsg1"].name
   resource_group_name         = var.resource_group_name
+  depends_on                  = [azurerm_network_security_group.this]
 }
 
 resource "azurerm_network_security_rule" "allow_http" {
@@ -34,22 +35,24 @@ resource "azurerm_network_security_rule" "allow_http" {
   source_port_range           = "*"
   network_security_group_name = azurerm_network_security_group.this["nsg1"].name
   resource_group_name         = var.resource_group_name
+  depends_on                  = [azurerm_network_security_group.this]
 }
 
-resource "azurerm_network_security_rule" "allow_mysql" {
-  for_each                     = var.nsg_config
-  name                        = "AllowMySQL"
-  priority                    = 102
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "*"
-  destination_port_range      = "3306" #  (MySQL)
-  source_port_range           = "*"
-  network_security_group_name = azurerm_network_security_group.this["nsg1"].name
-  resource_group_name         = var.resource_group_name
-}
+# resource "azurerm_network_security_rule" "allow_mysql" {
+#   for_each                     = var.nsg_config
+#   name                        = "AllowMySQL"
+#   priority                    = 102
+#   direction                   = "Inbound"
+#   access                      = "Allow"
+#   protocol                    = "Tcp"
+#   source_address_prefix       = "*"
+#   destination_address_prefix  = "*"
+#   destination_port_range      = "3306" #  (MySQL)
+#   source_port_range           = "*"
+#   network_security_group_name = azurerm_network_security_group.this["nsg1"].name
+#   resource_group_name         = var.resource_group_name
+#   depends_on                  = [azurerm_network_security_group.this]
+# }
 
 resource "azurerm_network_security_rule" "allow_rdp" {
   for_each                     = var.nsg_config
@@ -60,8 +63,9 @@ resource "azurerm_network_security_rule" "allow_rdp" {
   protocol                    = "Tcp"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
-  destination_port_range      = "443" # Single port (RDP)
+  destination_port_range      = "3389" # Single port (RDP)
   source_port_range           = "*"
   network_security_group_name = azurerm_network_security_group.this["nsg1"].name
   resource_group_name         = var.resource_group_name
+  depends_on                  = [azurerm_network_security_group.this]
 }

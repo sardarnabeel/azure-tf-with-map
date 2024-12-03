@@ -24,8 +24,8 @@ resource "azurerm_linux_virtual_machine_scale_set" "example" {
     storage_account_type = "Standard_LRS"
     caching              = "ReadWrite"
   }
-  # custom_data = file("${path.module}/wordpress-userdata.sh")
-  custom_data = base64encode(file("${path.module}/wordpress-userdata.sh"))
+  # custom_data = base64encode(file("${path.module}/wordpress-userdata.sh"))
+  custom_data = base64encode(var.user_data)
 
 
   network_interface {
