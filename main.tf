@@ -11,6 +11,9 @@ module "vss" {
   subnet_ids          = module.vnet.subnet_ids #its new for testing
   lb-backend_ids      = [module.load_balancer.lb-backend_ids]
   user_data           = file("${path.module}/modules/vss/wordpress-userdata.sh")
+  # user_data = templatefile("${path.module}/modules/vm/wordpress-userdata.sh", {
+  #   db_name = module.mysql-server.mysql_server_fqdns
+  # })
 }
 
 module "nsg" {
@@ -53,4 +56,11 @@ module "mysql-server" {
   subnet_ids          = module.vnet.subnet_ids
   resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.location
+}
+
+output "mysql-server-name" {
+  value = module.mysql-server.mysql_server_names
+}
+output "mysql-fqdn" {
+  value = module.mysql-server.mysql_server_fqdns
 }

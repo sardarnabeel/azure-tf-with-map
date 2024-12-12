@@ -19,7 +19,7 @@ sudo cp wp-config-sample.php wp-config.php
 sudo rm -rf wp-config-sample.php
 # Configure WordPress to connect to the MySQL DB
 # # Use the db_ip variable passed from Terraform
-# DB_IP="${db_ip}"
+# DB_name="${db_name}"
 # DB_NAME="wordpress"
 # DB_USER="wordpressuser"
 # DB_PASSWORD="wordpresspassword"
